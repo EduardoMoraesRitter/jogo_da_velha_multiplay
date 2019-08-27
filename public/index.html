@@ -1,13 +1,14 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, shrink-to-fit=yes">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Tic Tac Toe</title>
-    <link rel="stylesheet" href="css/style.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <script src="socket.io/socket.io.js"></script>
+
 </head>
 
 <body>
@@ -16,12 +17,10 @@
     <br>
     <input id='nome' type="text">
     <button class="btn" onclick="tic_tac_toe.start()" title="Restart this game">Jogar</button>
-    <script src="js/tic-tac-toe.js"></script>
+    <script src="tic-tac-toe.js"></script>
     <script>
         tic_tac_toe.init(document.querySelector('.game'));
-        //tic_tac_toe.start();
     </script>
-
 </body>
 
 </html>

@@ -1,7 +1,7 @@
 // TIC TAC TOE
 const tic_tac_toe = {
 
-    socket : io('http://192.168.15.113:3000')
+    socket : io('http://localhost:3000')
     
     .on('connect', () => {
         console.log("aqui", tic_tac_toe.socket.disconnected); // false
