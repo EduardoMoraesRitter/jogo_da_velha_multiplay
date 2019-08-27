@@ -5,22 +5,43 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, shrink-to-fit=yes">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
     <title>Tic Tac Toe</title>
     <link rel="stylesheet" href="style.css">
     <script src="socket.io/socket.io.js"></script>
+    <script src="tic-tac-toe.js"></script>
 
 </head>
 
 <body>
 
-    <div class='game'></div>
+    <div id="tela" style='display:none;'>
+        <div id='game' class='game'></div>
+        <button id="novo_jogo" class="btn">Novo Jogo</button>
+
+        <div id='onlie' class='online' style='display:none;'>
+            usuario online
+            ranking
+            sala de jogo
+        </div>
+    </div>
+
+    <div id='cadastro' class='cadastro' style='display:none;'>
+        <input id='nome' type="text">
+        <button id="cadastrar" class="btn" title="Iniciar">Iniciar</button>
+    </div>
+
+    <!-- 
+        
     <br>
     <input id='nome' type="text">
     <button class="btn" onclick="tic_tac_toe.start()" title="Restart this game">Jogar</button>
     <script src="tic-tac-toe.js"></script>
     <script>
-        tic_tac_toe.init(document.querySelector('.game'));
-    </script>
+        tic_tac_toe.init(document.querySelector('game'))
+    </script> 
+-->
+
 </body>
 
 </html>
