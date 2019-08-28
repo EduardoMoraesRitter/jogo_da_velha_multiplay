@@ -11,16 +11,6 @@ let sala_aberta = ""
 const tic_tac_toe = {
   // ATTRIBUTES
   board: ['', '', '', '', '', '', '', '', ''],
-  symbols: {
-    options: ['O', 'X'],
-    turn_index: 0,
-    change() {
-      this.turn_index = (this.turn_index === 0 ? 1 : 0)
-    }
-  },
-  container_element: null,
-  gameover: false,
-  gameover: false,
   winning_sequences: [
     [0, 1, 2],
     [3, 4, 5],

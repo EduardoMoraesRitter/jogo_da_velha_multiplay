@@ -9,16 +9,16 @@ window.onload = function () {
         init(container) {
 
             //verifica se ja estava jogando
-            var session = sessionStorage['session']
+            var session = localStorage['session']
 
             if (session) {
                 document.getElementById("tela").style.display = "block"
                 tic_tac_toe.start()
             } else {
-                sessionStorage['session'] = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15)
-                session = sessionStorage['session']
+                localStorage['session'] = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15)
+                session = localStorage['session']
 
-                document.getElementById("cadastro").style.display = "block";
+                document.getElementById("cadastro").style.display = "block"
                 //onclick="tic_tac_toe.start()"
 
                 document.getElementById("cadastrar").addEventListener("click", () => {
@@ -29,7 +29,7 @@ window.onload = function () {
 
                     console.log("teste")
 
-                    sessionStorage['nome'] = document.getElementById("nome").value
+                    localStorage['nome'] = document.getElementById("nome").value
                     //this.socket.emit('inicia', nome)
 
                     tic_tac_toe.start()
@@ -43,9 +43,7 @@ window.onload = function () {
         },
         start() {
 
-
-
-            let socket = io('http://localhost:3000', { transports: ['websocket'], upgrade: false, query: sessionStorage })
+            let socket = io('http://localhost:3000', { query: localStorage })
                 .on('connect', () => {
                     console.log("aqui", tic_tac_toe.socket)
 
@@ -54,8 +52,6 @@ window.onload = function () {
                     })
 
                     socket.emit('inicia', nome)
-
-
 
                 })
                 .on('disconnect', function () {
