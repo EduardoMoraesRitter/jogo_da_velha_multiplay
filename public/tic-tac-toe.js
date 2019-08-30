@@ -1,7 +1,7 @@
 // TIC TAC TOE
 window.onload = function () {
 
-    const tic_tac_toe = {
+    tic_tac_toe = {
         container_element: null,
         gameover: false,
 
@@ -10,30 +10,21 @@ window.onload = function () {
 
             //verifica se ja estava jogando
             var session = localStorage['session']
+            var nome = localStorage['nome']
 
-            if (session) {
+            if (session && nome) {
                 document.getElementById("tela").style.display = "block"
                 tic_tac_toe.start()
             } else {
-                localStorage['session'] = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15)
-                session = localStorage['session']
-
                 document.getElementById("cadastro").style.display = "block"
-                //onclick="tic_tac_toe.start()"
-
                 document.getElementById("cadastrar").addEventListener("click", () => {
-
                     document.getElementById("cadastro").style.display = "none"
-
                     document.getElementById("tela").style.display = "block"
-
                     console.log("teste")
-
                     localStorage['nome'] = document.getElementById("nome").value
-                    //this.socket.emit('inicia', nome)
-
+                    localStorage['session'] = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15)
+                    session = localStorage['session']
                     tic_tac_toe.start()
-
                 });
             }
             //document.querySelector('game')
@@ -43,9 +34,9 @@ window.onload = function () {
         },
         start() {
 
-            let socket = io('http://localhost:3000', { query: localStorage })
+            socket = io('http://localhost:3000', { query: localStorage })
                 .on('connect', () => {
-                    console.log("aqui", tic_tac_toe.socket)
+                    console.log("Conectado ", tic_tac_toe.socket)
 
                     document.getElementById("novo_jogo").addEventListener("click", () => {
                         socket.emit('inicia', nome)
@@ -62,7 +53,8 @@ window.onload = function () {
                 })
                 .on('bora', board => {
                     if (board.length == 0) {
-                        tic_tac_toe.container_element.innerHTML = "Aguarde o outro jogador entrar na sala"
+                        document.getElementById("status").value = "Aguarde o outro jogador entrar na sala"
+                        //tic_tac_toe.container_element.innerHTML = "Aguarde o outro jogador entrar na sala"
                     } else {
                         tic_tac_toe.board = board
                         tic_tac_toe.draw()
@@ -99,7 +91,7 @@ window.onload = function () {
             tic_tac_toe.container_element.innerHTML = tic_tac_toe.board.map((element, index) => `<div onclick="tic_tac_toe.make_play('${index}')"> ${element} </div>`).reduce((content, current) => content + current)
         },
         make_play(position) {
-            this.socket.emit('jogada', position)
+            socket.emit('jogada', position)
 
             // if (this.gameover || this.board[position] !== '') return false
 
@@ -147,8 +139,5 @@ window.onload = function () {
             return !this.board.includes('')
         },
     }
-
-    tic_tac_toe.init()
-
-
+    tic_tac_toe.init(document.querySelector('#game'))
 }

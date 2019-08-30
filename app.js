@@ -74,13 +74,13 @@ io.on("connection", socket => {
       socket.symbols = "O"
       io.sockets.adapter.rooms[socket.room].vez = socket.id
       socket.emit('bora', [])
-      console.log("nova sala")
+      console.log("nova sala - ",  sala_aberta)
     } else {
       socket.join(sala_aberta)
       socket.room = sala_aberta
       socket.symbols = "X"
       io.sockets.in(socket.room).emit('bora', tic_tac_toe.board)
-      console.log("entrou na sala ", tic_tac_toe.board)
+      console.log("entrou na sala - ", sala_aberta)
     }
     io.sockets.adapter.rooms[socket.room].board = Object.assign([], tic_tac_toe.board)
     io.sockets.adapter.rooms[socket.room].gameover = false
@@ -88,10 +88,8 @@ io.on("connection", socket => {
 
   socket.on('jogada', function (jogada) {
 
-    var allRooms = io.rooms
-    var myRooms = socket.rooms
-
-    console.log("jogada do ", socket.symbols, " - ", socket.id)
+    //var allRooms = io.rooms
+    //var myRooms = socket.rooms
 
     if (socket.room &&
       io.sockets.adapter.rooms &&
@@ -99,6 +97,8 @@ io.on("connection", socket => {
       io.sockets.adapter.rooms[socket.room].vez == socket.id &&
       io.sockets.adapter.rooms[socket.room].gameover == false
     ) {
+
+      console.log("Realizou a jogada ", socket.symbols, " - ", socket.id)
 
       var lista_socket = Object.keys(io.sockets.adapter.rooms[socket.room].sockets)
       lista_socket.splice(lista_socket.indexOf(socket.id), 1)
